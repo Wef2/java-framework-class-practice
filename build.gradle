@@ -1,0 +1,14 @@
+task list << {
+  def collections = []
+  rootDir.eachFileRecurse{
+    collections += it
+  }
+  collections.collect { relativePath(it)}.sort().each{println it}
+}
+
+task copy(type: Copy){
+  from 'resources'
+  from 'build'
+  into 'target'
+  include '**/*.txt'
+}
