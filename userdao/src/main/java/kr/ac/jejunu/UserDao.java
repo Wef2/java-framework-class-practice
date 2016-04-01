@@ -7,26 +7,57 @@ import java.sql.*;
  */
 public class UserDao {
 
-    public User get(Long id) throws ClassNotFoundException, SQLException {
+    private final ConnectionMaker connectionMaker;
 
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root", "root123");
-        String sql = "select * from user where id = ?";
+    public UserDao(ConnectionMaker connectionMaker) {
+        this.connectionMaker = connectionMaker;
+    }
+
+    public User get(Long id) throws ClassNotFoundException, SQLException {
+        Connection connection = connectionMaker.getConnection();
+        String sql = "SELECT * FROM user WHERE id = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setLong(1, id);
 
-        ResultSet resultSet = preparedStatement.executeQuery(sql);
+        ResultSet resultSet = preparedStatement.executeQuery();
         resultSet.next();
 
         User user = new User();
-        user.setId(resultSet.getLong(0));
-        user.setName(resultSet.getString(1));
-        user.setPassword(resultSet.getString(2));
+        user.setId(resultSet.getLong("id"));
+        user.setName(resultSet.getString("name"));
+        user.setPassword(resultSet.getString("password"));
 
         resultSet.close();
         preparedStatement.close();
         connection.close();
 
         return user;
+    }
+
+    public Long add(User user) throws ClassNotFoundException, SQLException {
+        Connection connection = connectionMaker.getConnection();
+        String sql = "INSERT INTO user (name, password) values (?, ?)";
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setString(1, user.getName());
+        preparedStatement.setString(2, user.getPassword());
+        preparedStatement.executeUpdate();
+
+        Long id = getLastInsertId(connection);
+        preparedStatement.close();
+        connection.close();
+
+        return id;
+    }
+
+    private Long getLastInsertId(Connection connection) throws SQLException {
+        PreparedStatement preparedStatement2 = connection.prepareStatement("SELECT last_insert_id()");
+
+        ResultSet resultSet = preparedStatement2.executeQuery();
+        resultSet.next();
+        Long id = resultSet.getLong(1);
+
+        resultSet.close();
+        preparedStatement2.close();
+        return id;
     }
 }
