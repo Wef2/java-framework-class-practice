@@ -16,5 +16,6 @@ ext{
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.11'
     compile group: 'org.springframework', name: 'spring-context', version: springVersion
+    compile group: 'org.springframework', name: 'spring-jdbc', version: springVersion
     compile 'mysql:mysql-connector-java:5.1.34'
 }

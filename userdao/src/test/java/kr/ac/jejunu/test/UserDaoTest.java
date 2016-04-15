@@ -1,7 +1,7 @@
 package kr.ac.jejunu.test;
 
-import kr.ac.jejunu.User;
-import kr.ac.jejunu.UserDao;
+import kr.ac.jejunu.userdao.User;
+import kr.ac.jejunu.userdao.UserDao;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,7 +19,6 @@ public class UserDaoTest {
 
     @Before
     public void setup(){
-//        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(DaoFactory.class);
         ApplicationContext applicationContext = new GenericXmlApplicationContext("daoFactory.xml");
         userDao = (UserDao) applicationContext.getBean("userDao");
     }
@@ -31,7 +30,7 @@ public class UserDaoTest {
         User user = userDao.get(id);
 
         Assert.assertEquals(user.getName(), "자바");
-        Assert.assertEquals(user.getPassword(), "spring");
+        Assert.assertEquals(user.getPassword(), "11");
         Assert.assertEquals(user.getId(), id);
     }
 

@@ -1,4 +1,4 @@
-package kr.ac.jejunu;
+package kr.ac.jejunu.userdao;
 
 /**
  * Created by Kim on 2016-03-25.
