@@ -34,6 +34,8 @@ dependencies {
             "org.apache.tomcat.embed:tomcat-embed-logging-juli:${tomcatVersion}",
             "org.apache.tomcat.embed:tomcat-embed-jasper:${tomcatVersion}"
     compile group: 'org.springframework', name: 'spring-context', version: springVersion
+    compile group: 'org.springframework', name: 'spring-jdbc', version: springVersion
+    compile group: 'org.springframework', name: 'spring-webmvc', version: springVersion
     testCompile group: 'junit', name: 'junit', version: '4.11'
     compile group: 'javax.servlet', name: 'javax.servlet-api', version: servletVersion
     compile group: 'org.slf4j', name: 'slf4j-api', version: slf4jVersion
