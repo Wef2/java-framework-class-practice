@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Created by neo-202 on 2016-05-19.
  */
-public class HelloInterceptor implements HandlerInterceptor{
+public class HelloInterceptor extends HandlerInterceptorAdapter{
 
     private final static Logger logger = LoggerFactory.getLogger(HelloInterceptor.class);
 
